@@ -1,0 +1,43 @@
+doctype html
+html(lang='en')
+  head
+    title ToDo Manager
+    link(href='bower_components/bootstrap/dist/css/bootstrap.css', rel='stylesheet', type='text/css')
+    link(rel='stylesheet', href='../css/style.css')
+    link(href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet')
+  body
+    .container
+      - if (messages.success)
+        .alert.alert-success= messages.success
+    div.bodyDiv.col-md-12
+          h1 Todo List
+          |             
+          p Welcome to the Todo app by @me. Please enjoy.
+          |             
+          form(action="/tasks", method="POST")
+            .col-md-12.input
+              button.allDone.btn.btn-success(type="button") all done!
+              |                 
+              .input-group
+                input.form-control(name="title" type="text", placeholder="add a new task" autofocus)
+                |                     
+                span.input-group-btn
+                  button.btn.btn-info(type="submit") add!
+          ul.col-md-12
+            each task, i in tasks
+              li.list-group-item.task-item.col-md-12(class= task.done && 'task-done')
+                button.done.btn.btn-warning Done
+                div.title-box                
+                  span= task.title
+                    i.glyphicon.glyphicon-pencil
+                  form
+                    input(value=task.title)
+                small= moment(task.createdAt).format('DD-MM-YYYY hh:mm')
+                input.task-id(type='hidden', value=task.id)
+                button.remove.btn.btn-danger Delete
+                script(src='https://code.jquery.com/jquery-2.0.3.min.js')
+                script(src='/js/main.js')
+
+
+
+
